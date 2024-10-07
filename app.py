@@ -107,7 +107,9 @@ async def main():
                     offset = result.next_offset
     # Write to CSV
     print("Writing to CSV...")
-    with open('latest_activity.csv', 'w', newline='', encoding='utf-8') as csvfile:
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    filename = f'latest_activity_{timestamp}.csv'
+    with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
         fieldnames = ['user_id', 'username', 'date', 'type', 'content']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
@@ -148,7 +150,7 @@ async def main():
                         'type': 'No recent activity',
                         'content': ''
                     })
-    print("CSV file 'latest_activity.csv' has been created.")
+    print(f"CSV file '{filename}' has been created.")
 
     await client.disconnect()
 
